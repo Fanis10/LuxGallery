@@ -13817,7 +13817,7 @@
                             <div class="breadcrumbs__item breadcrumbs__item--active">Индивидуальный подбор подарков</div>
                         </div>
                         <div class="step-numbers">
-                            <div class="step-number">
+                            <div class="step-number step-number--active">
                                 <span>1</span>
                                 <p>Выберите вариант подарка</p>
                             </div>
@@ -14259,13 +14259,30 @@
 
         const swiperEl = document.querySelector('.swiper');
         const nextBtn = document.querySelector('.step-btn--next');
+        const prevBtn = document.querySelector('.step-btn--prev');
+        const nextBtnText = nextBtn.querySelector('span');
 
         let swiper = null;
         let rangeUsed = false;
 
+        // ================= UI =================
         function setNextState(state) {
             nextBtn.disabled = !state;
             nextBtn.classList.toggle('disabled', !state);
+        }
+
+        function setPrevState(index) {
+            const isFirst = index === 0;
+            prevBtn.disabled = isFirst;
+            prevBtn.classList.toggle('disabled', isFirst);
+        }
+
+        function updateNextButtonText(index) {
+            if (index === 3) {
+                nextBtnText.textContent = 'ОТПРАВИТЬ';
+            } else {
+                nextBtnText.textContent = 'ДАЛЕЕ';
+            }
         }
 
         function getSwiper() {
@@ -14277,6 +14294,16 @@
             document.body.classList.add('fixed-body');
         }
 
+        // ================= STEP NUMBERS =================
+        function updateStepNumbers(index) {
+            const steps = document.querySelectorAll('.step-number');
+
+            steps.forEach((item, i) => {
+                item.classList.toggle('step-number--active', i === index);
+            });
+        }
+
+        // ================= EMAIL UI =================
         function handleEmailUI(step) {
 
             const email = step.querySelector('input[type="email"]');
@@ -14322,7 +14349,6 @@
             const checkbox = step.querySelector('input[type="checkbox"]');
 
             const nameValid = name.value.trim().length > 0;
-
             const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
 
             return nameValid && emailValid && checkbox.checked;
@@ -14336,6 +14362,11 @@
 
             const index = swiper.activeIndex;
             const step = swiper.slides[index];
+
+            // UI синхронизация
+            updateStepNumbers(index);
+            setPrevState(index);
+            updateNextButtonText(index);
 
             let valid = false;
 
@@ -14351,7 +14382,6 @@
 
                 nextBtn.onclick = function () {
                     if (!validateStep4(step)) return;
-
                     openModal('successModal');
                 };
 
