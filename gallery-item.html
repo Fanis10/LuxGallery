@@ -13846,7 +13846,55 @@
 					</div>
 				</div>
 			</section>
-
+            <section class="gallery-tour">
+                <div class="container">
+                    <div class="gallery-tour__inner">
+                        <h2 class="gallery-tour__title text48">Виртуальный тур <span class="inline">по галерее</span></h2>
+                        <div class="gallery-tour__img">
+                            <iframe src="https://yandex.ru/map-widget/v1/?l=stv%2Csta&ll=37.628314%2C55.762713&mode=search&oid=132655486722&ol=biz&panorama%5Bdirection%5D=55.036627%2C-2.932354&panorama%5Bfull%5D=true&panorama%5Bpoint%5D=37.628645%2C55.762728&panorama%5Bspan%5D=116.216643%2C60.000000&sctx=ZAAAAAgBEAAaKAoSCWvVrglpz0JAEf8%2B48KB4EtAEhIJp0HRPICF%2BD8Rn3b4a7JG3z8iBgABAgMEBSgKOABAzZIHSAFqAnJ1nQHNzEw9oAEAqAEAvQGF1HIywgEGgq6Il%2B4DggIW0JvRjtC60YHQv9C%2B0LTQsNGA0LrQuIoCAJICAJoCDGRlc2t0b3AtbWFwcw%3D%3D&sll=37.628572%2C55.762713&sspn=0.000748%2C0.000234&tab=panorama&text=%D0%9B%D1%8E%D0%BA%D1%81%D0%BF%D0%BE%D0%B4%D0%B0%D1%80%D0%BA%D0%B8&utm_source=share&z=21" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="gallery">
+                <div class="container">
+                    <div class="gallery__inner">
+                        <h2 class="gallery__title text48">Фотографии галереи</h2>
+                        <div class="gallery__images">
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                            <a class="gallery__img" href="img/gallery-img.webp" data-fancybox="gallery">
+                                <img src="img/gallery-img.webp" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="gallery-main gallery-main--2">
+                <div class="container">
+                    <div class="gallery-main__inner">
+                        <div class="map-wrap">
+                            <div id="map" class="map"></div>
+                        </div>
+                        <div class="balloon-mob" id="balloonMob">
+                            <div class="balloon-mob__inner"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 		</main>
 		<footer class="footer" role="contentinfo">
 
@@ -14110,7 +14158,7 @@
 
             let mapParams = {
                 center: center,
-                zoom: 4
+                zoom: 17
             }
 
             let iconImageSize = [40, 40];
@@ -14118,42 +14166,13 @@
             let defaultIcon = "img/map-icon.svg";
             let activeIcon = "img/map-icon2.svg";
 
-            if (window.innerWidth < 1201) {
-                mapParams.zoom = 16;
-            }
-
             window.map = new ymaps.Map('map', mapParams);
 
             let pixelCenter = map.getGlobalPixelCenter();
 
-            map.setGlobalPixelCenter([
-                pixelCenter[0],
-                pixelCenter[1] - -200
-            ]);
-
-            if (window.innerWidth < 1201) {
-                map.setGlobalPixelCenter([
-                    pixelCenter[0],
-                    pixelCenter[1]
-                ]);
-            }
-
             let mapObjects = [
                 {
-                    imgSrc: "img/balloon-img.webp",
-                    imgSrc2: "img/balloon-img2.webp",
-                    title: "Лубянка",
-                    address: "г. Москва, ул. Большая Лубянка <span class='inline'>д.14, стр.1</span>",
-                    phone: `<a class="info-phone" href="tel:74959276067">+7 495 927-60-67</a>`,
                     cords: [55.761016, 37.627562],
-                },
-                {
-                    imgSrc: "img/balloon-img.webp",
-                    imgSrc2: "img/balloon-img2.webp",
-                    title: "Лубянка 2",
-                    address: "г. Москва, ул. Большая Лубянка <span class='inline'>д.14, стр.1</span>",
-                    phone: `<a class="info-phone" href="tel:74959276067">+7 495 927-60-67</a>`,
-                    cords: [25.229762, 55.289311],
                 },
             ];
 
@@ -14165,32 +14184,10 @@
                         balloonContent: `
                         <div class="balloon">
                             <div class="balloon__wrap">
-                                <div class="gallery-card">
-                                    <div class="gallery-card__wrap">
-                                        <div class="gallery-card__img">
-                                            <img src="${object.imgSrc}" alt="">
-                                        </div>
-                                        <div class="gallery-card__desc">
-                                            <a href="" class="gallery-card__title text32">
-                                                ${object.title}
-                                                <img src="img/arrow-right.svg" alt="">
-                                            </a>
-                                            <div class="gallery-card__text">
-                                                <p class="text16">
-                                                    <strong>Время работы галереи:</strong>
-                                                    Ежедневно <span class="inline">с 09:00 до 21:00</span>
-                                                </p>
-                                                <p class="text16">
-                                                    <strong>Адрес:</strong>
-                                                    ${object.address}
-                                                </p>
-                                                <p class="text16">
-                                                    <strong>Телефон: ${object.phone}</strong>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a class="gallery-main__btn btn btn-black__outline" href="">
+                                    <span>построить маршрут</span>
+                                </a>
+                                <div class="gallery-main__info text16">Ежедневно <span class="inline">с 09:00 до 21:00</span></div>
                             </div>
                         </div>
                     `
@@ -14240,34 +14237,13 @@
                         balloonMob.classList.add('active');
 
                         balloonMob.querySelector('.balloon-mob__inner').innerHTML = `
-                        <div class="gallery-card">
-                            <div class="gallery-card__wrap">
-                                <div class="gallery-card__img">
-                                    <img src="${object.imgSrc2}" alt="">
-                                </div>
-                                <div class="gallery-card__desc">
-                                    <div class="gallery-card__title text32">
-                                        ${object.title}
-                                    </div>
-                                    <div class="gallery-card__text">
-                                        <p class="text16">
-                                            <strong>Время работы:</strong>
-                                            Ежедневно <span class="inline">с 09:00 до 21:00</span>
-                                        </p>
-                                        <p class="text16">
-                                            <strong>Адрес:</strong>
-                                            ${object.address}
-                                        </p>
-                                        <p class="text16">
-                                            <strong>Телефон:</strong>
-                                            ${object.phone}
-                                        </p>
-                                    </div>
-                                </div>
+                        <div class="balloon">
+                            <div class="balloon__wrap">
+                                <a class="gallery-main__btn btn btn-black__outline" href="">
+                                    <span>построить маршрут</span>
+                                </a>
+                                <div class="gallery-main__info text16">Ежедневно <span class="inline">с 09:00 до 21:00</span></div>
                             </div>
-                            <a class="gallery-card__btn btn btn-black" href="">
-                                <span class="">перейти</span>
-                            </a>
                         </div>
                     `;
 
